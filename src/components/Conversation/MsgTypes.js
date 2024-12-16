@@ -1,8 +1,55 @@
-import { Divider, Stack, Typography, Box } from '@mui/material';
+import { Divider, Stack, Typography, Box, IconButton } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import {  DownloadSimple, Image } from 'phosphor-react';
 import React from 'react';
 
 
+
+const DocMessage = ({ el }) => {
+  const theme = useTheme();
+  return (
+    <Stack direction={"row"} justifyContent={el.incoming ? "start" : "end"}>
+    <Box
+      p={1.5}
+      sx={{
+        backgroundColor: el.incoming
+          ? theme.palette.mode === 'light'
+            ? '#f8faff'
+            : theme.palette.background.paper
+          : '#0162c4',
+        borderRadius: el.incoming ? "16px 16px 16px 4px" : "16px 16px 4px 16px",
+        boxShadow: el.incoming ? "1px 1px 4px rgba(0, 0, 0, 0.1)" : "2px 2px 6px rgba(0, 98, 196, 0.3)",
+        color: el.incoming ? theme.palette.text.primary : "#fff",
+      }}
+      width={"max-content"}
+    >
+      <Stack spacing={1}>
+        <Stack p={2} direction={"row"} alignItems={"center"} spacing={1} sx={{
+          backgroundColor: el.incoming
+            ? theme.palette.mode === 'light'
+              ? '#e0f7fa' // Slightly different color for document container
+              : theme.palette.background.default
+            : '#0162c4',
+          borderRadius: "16px",
+          boxShadow: el.incoming && theme.palette.mode === 'light' ? "1px 1px 4px rgba(0, 0, 0, 0.1)" : el.incoming ? "none" : "2px 2px 6px rgba(0, 98, 196, 0.3)",
+          color: el.incoming ? theme.palette.text.primary : "#fff"
+        }}>
+          <Image size={48} />
+          <Typography variant="caption" color={el.incoming ? theme.palette.text.primary : "#fff"}>
+            Abstract.png
+          </Typography>
+          <IconButton>
+            <DownloadSimple />
+          </IconButton>
+        </Stack>
+        <Typography variant="body2" color={el.incoming ? theme.palette.text.primary : "#fff"}>
+          {el.message}
+        </Typography>
+      </Stack>
+    </Box>
+  </Stack>
+  );
+};
 
 
 const LinkMessage = ({ el }) => {
@@ -11,15 +58,24 @@ const LinkMessage = ({ el }) => {
     <Stack direction={"row"} justifyContent={el.incoming ? "start" : "end"}>
       <Box
         p={1.5}
+        
      
         width={"max-content"}
       >
-        <Stack spacing={2} >
-          <Stack spacing={3} p={2} alignItems={"center"} direction={"column"} sx={{backgroundColor: el.incoming ? theme.palette.mode === 'light' ? '#f8faff' : theme.palette.background.paper : '#0162c4', borderRadius: "16px", boxShadow: el.incoming ? "1px 1px 4px rgba(0, 0, 0, 0.1)" : "2px 2px 6px rgba(0, 98, 196, 0.3", color: el.incoming ? theme.palette.text.primary : "#fff", borderRadius: el.incoming ? "16px 16px 16px 4px" : "16px 16px 4px 16px"}}>
+        <Stack spacing={1} >
+          <Stack spacing={0.5} p={2} alignItems={"center"} direction={"column"} sx={{backgroundColor: el.incoming ? theme.palette.mode === 'light' ? '#f8faff' : theme.palette.background.paper : '#0162c4', borderRadius: "16px", boxShadow: el.incoming ? "1px 1px 4px rgba(0, 0, 0, 0.1)" : "2px 2px 6px rgba(0, 98, 196, 0.3", color: el.incoming ? theme.palette.text.primary : "#fff", borderRadius: el.incoming ? "16px 16px 16px 4px" : "16px 16px 4px 16px"}}>
         <img src={el.preview} alt={el.message} style={{maxHeight:210, borderRadius: '10px'}} />
-        <Stack>
-          
+        <Stack spacing={0.5}>
+            <Typography variant="subtitle2" color={el.incoming ? theme.palette.text.primary : "#fff"}>
+              Creating a chatapp 
+            </Typography>
+            <Typography variant="subtitle2" component={"a"} color={el.incoming ? theme.palette.primary.main : "#fff"} href={"https://www.chatapp.com"} target="_blank">
+              www.chatapp.com
+            </Typography>
         </Stack>
+        <Typography variant="body2" color={el.incoming ? theme.palette.text.secondary : "#fff"}>
+          {el.message}
+        </Typography>
           </Stack>
         </Stack>
       </Box>
@@ -171,4 +227,4 @@ const Timeline = ({ el }) => {
   );
 };
 
-export { Timeline, TextMessage, MediaMessage, ReplyMessage, LinkMessage };
+export { Timeline, TextMessage, MediaMessage, ReplyMessage, LinkMessage, DocMessage };

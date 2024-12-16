@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Stack } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Chat_History } from '../../data';
-import { MediaMessage, Timeline, TextMessage, ReplyMessage, LinkMessage } from './MsgTypes';
+import { MediaMessage, Timeline, TextMessage, ReplyMessage, LinkMessage, DocMessage } from './MsgTypes';
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
 
@@ -23,8 +23,7 @@ const Message = () => {
                   case "img":
                     return <MediaMessage key={el.id} el={el} />;
                   case "doc":
-                    // doc message
-                    break;
+                   return <DocMessage key={el.id} el={el} />;
                   case "text":
                     return <TextMessage key={el.id} el={el} />;
                   case "video":
